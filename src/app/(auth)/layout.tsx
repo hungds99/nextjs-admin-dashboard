@@ -1,14 +1,11 @@
 'use client';
 
-import { AppSidebar } from '@/components/common/app-sidebar';
-import { Header } from '@/components/common/header';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { auth } from '@/lib/firebase-config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function DashboardLayout({
+export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -20,6 +17,7 @@ export default function DashboardLayout({
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsAuthenticated(true);
+        router.push('/'); // Redirect to dashboard if authenticated
       } else {
         setIsAuthenticated(false);
         router.push('/sign-in'); // Redirect to sign-in page if not authenticated
@@ -29,17 +27,5 @@ export default function DashboardLayout({
     return () => unsubscribe();
   }, [router]);
 
-  if (!isAuthenticated) {
-    return null; // Optionally, you can return a loading spinner here
-  }
-
-  return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <Header />
-        {children}
-      </SidebarInset>
-    </SidebarProvider>
-  );
+  return <>{children}</>;
 }

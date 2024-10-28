@@ -8,9 +8,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { auth } from '@/lib/firebase-config';
+import { signOut } from 'firebase/auth';
 import { Bell, LogOut, Settings, User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export const UserNav = () => {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.replace('/sign-in'); // Redirect to sign-in page after logout
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,7 +56,7 @@ export const UserNav = () => {
           <span>Settings</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className='text-red-500' onClick={handleLogout}>
           <LogOut className='mr-2 h-4 w-4' />
           <span>Log out</span>
         </DropdownMenuItem>
