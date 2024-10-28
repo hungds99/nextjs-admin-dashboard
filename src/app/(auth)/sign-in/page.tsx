@@ -14,11 +14,13 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // Redirect or show success message
@@ -26,6 +28,7 @@ export default function SignIn() {
     } catch (error: any) {
       setError(error?.message);
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -63,7 +66,7 @@ export default function SignIn() {
                 required
               />
             </div>
-            <Button type='submit' className='w-full'>
+            <Button type='submit' className='w-full' disabled={isSubmitting}>
               Login
             </Button>
             {error && <p className='text-red-500 text-sm text-center'>{error}</p>}
