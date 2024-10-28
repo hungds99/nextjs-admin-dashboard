@@ -1,19 +1,18 @@
 import { AppContainer } from '@/components/common/app-container';
+import { Header } from '@/components/common/header';
 import { buttonVariants } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { z } from 'zod';
 import { columns } from './components/columns';
 import { DataTable } from './components/data-table';
 import { userSchema } from './data/schema';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Users',
   description: 'Manage users in the system.',
 };
-
-//
 
 // Simulate a database read for tasks.
 async function getUsers() {
@@ -36,16 +35,16 @@ export default async function Page() {
 
   return (
     <AppContainer>
-      <div className='hidden h-full flex-1 flex-col space-y-8 md:flex'>
-        <div className='flex items-center justify-between space-y-2'>
-          <h2 className='text-3xl font-bold tracking-tight'>Companies</h2>
-          <div className='flex items-center space-x-2'>
-            <Link className={buttonVariants({ variant: 'default' })} href={'/users/new'}>
+      <div className='hidden h-full flex-1 flex-col space-y-4 md:flex'>
+        <Header
+          title='Companies'
+          primaryAction={
+            <Link href={'/companies/new'} className={buttonVariants({ variant: 'default' })}>
               <Plus />
-              Add User
+              <span>Add Company</span>
             </Link>
-          </div>
-        </div>
+          }
+        />
         <DataTable data={users} columns={columns} />
       </div>
     </AppContainer>

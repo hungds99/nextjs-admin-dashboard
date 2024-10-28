@@ -1,4 +1,5 @@
 import { AppContainer } from '@/components/common/app-container';
+import { Header } from '@/components/common/header';
 import { buttonVariants } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Metadata } from 'next';
@@ -31,21 +32,21 @@ async function getUsers() {
   return z.array(userSchema).parse(data);
 }
 
-export default async function Page() {
+export default async function UsersPage() {
   const users = await getUsers();
 
   return (
     <AppContainer>
-      <div className='hidden h-full flex-1 flex-col space-y-8 md:flex'>
-        <div className='flex items-center justify-between space-y-2'>
-          <h2 className='text-3xl font-bold tracking-tight'>Users</h2>
-          <div className='flex items-center space-x-2'>
-            <Link className={buttonVariants({ variant: 'default' })} href={'/users/new'}>
+      <div className='hidden h-full flex-1 flex-col space-y-4 md:flex'>
+        <Header
+          title='Users'
+          primaryAction={
+            <Link href={'/users/new'} className={buttonVariants({ variant: 'default' })}>
               <Plus />
-              Add Company
+              <span>Add User</span>
             </Link>
-          </div>
-        </div>
+          }
+        />
         <DataTable data={users} columns={columns} />
       </div>
     </AppContainer>

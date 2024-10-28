@@ -1,7 +1,7 @@
 'use client';
 
+import { AppHeader } from '@/components/common/app-header';
 import { AppSidebar } from '@/components/common/app-sidebar';
-import { Header } from '@/components/common/header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { auth } from '@/lib/firebase-config';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -37,7 +37,7 @@ export default function DashboardLayout({
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <Header />
+        <AppHeader />
         {children}
       </SidebarInset>
     </SidebarProvider>

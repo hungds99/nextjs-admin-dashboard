@@ -1,20 +1,12 @@
 import { AppContainer } from '@/components/common/app-container';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
-import UserForm from './_components/create-form';
+import { Header } from '@/components/common/header';
+import UserForm from './_components/user-form';
 
-export default function User() {
+export default function UserPage() {
   return (
     <AppContainer>
       <div className='hidden h-full flex-1 flex-col space-y-8 md:flex'>
-        <div className='flex items-center justify-between space-y-2'>
-          <div className='flex items-center gap-3'>
-            <Link href='/users'>
-              <ArrowLeft />
-            </Link>
-            <h2 className='text-3xl font-bold tracking-tight'>Add user</h2>
-          </div>
-        </div>
+        <Header title='Add user' backLink='/users' />
         <UserForm />
       </div>
     </AppContainer>

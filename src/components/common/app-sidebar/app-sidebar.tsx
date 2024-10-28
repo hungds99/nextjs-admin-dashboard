@@ -35,7 +35,6 @@ import {
   CreditCard,
   GalleryVerticalEnd,
   GitPullRequest,
-  ListTodo,
   LogOut,
   Settings2,
   Sparkles,
@@ -75,11 +74,6 @@ const data = {
       title: 'Companies',
       url: '/companies',
       icon: GitPullRequest,
-    },
-    {
-      title: 'Tasks',
-      url: '/tasks',
-      icon: ListTodo,
     },
     {
       title: 'Settings',

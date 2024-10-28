@@ -1,26 +1,36 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
-import { UserNav } from '../user-nav';
-import { Breadcrumbs } from '../breadcrumbs';
+'use client';
 
-export const Header = () => {
+import { Button } from '@/components/ui/button';
+import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
+
+interface HeaderProps {
+  title?: string;
+  backLink?: string;
+  actions?: React.ReactNode[];
+  primaryAction?: React.ReactNode;
+}
+
+export const Header = ({ title, backLink, actions = [], primaryAction }: HeaderProps) => {
   return (
-    <header className='flex items-center justify-between h-16 shrink-0 px-4 gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12'>
-      <div className='flex items-center gap-2'>
-        <SidebarTrigger className='-ml-1' />
-        <Separator orientation='vertical' className='mr-2 h-4' />
-        <Breadcrumbs />
+    <header className='flex items-center justify-between py-4 bg-background'>
+      <div className='flex items-center'>
+        {backLink ? (
+          <Link href={backLink} className='mr-4'>
+            <Button variant='ghost' size='icon'>
+              <ChevronLeft className='h-4 w-4' />
+              <span className='sr-only'>Back</span>
+            </Button>
+          </Link>
+        ) : null}
+        {title && <h1 className='text-xl font-semibold'>{title}</h1>}
       </div>
-      <div className='flex items-center gap-2 px-4'>
-        <UserNav />
+      <div className='flex items-center space-x-2'>
+        {actions.map((action, index) => (
+          <React.Fragment key={index}>{action}</React.Fragment>
+        ))}
+        {primaryAction}
       </div>
     </header>
   );
