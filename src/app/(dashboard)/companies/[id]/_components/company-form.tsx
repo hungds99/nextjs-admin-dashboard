@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -28,12 +28,12 @@ export default function CompanyForm() {
   };
 
   return (
-    <Card className='w-full  mx-auto'>
+    <Card className='w-full mx-auto'>
       <CardContent className='p-6'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
           <div>
             <div className='flex justify-between space-x-5'>
-              <div className='w-2/3 border rounded-lg p-4 mb-4 h-48 flex items-center justify-center bg-gray-50'>
+              <div className='w-2/3 border rounded-lg mb-4 h-40 flex items-center justify-center bg-gray-50'>
                 {logo ? (
                   <Image
                     width={200}
@@ -73,7 +73,7 @@ export default function CompanyForm() {
                 id='summary'
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
-                className='h-28'
+                className='h-28 resize-none'
               />
               <div className='text-sm text-gray-500 mt-1'>(0/100)</div>
             </div>
@@ -101,11 +101,10 @@ export default function CompanyForm() {
             </div>
           </div>
         </div>
-
-        <div className='w-full mt-6 flex justify-center items-center'>
-          <Button className='bg-red-600 hover:bg-red-700 text-white'>Create</Button>
-        </div>
       </CardContent>
+      <CardFooter className='flex justify-end'>
+        <Button>Create</Button>
+      </CardFooter>
     </Card>
   );
 }

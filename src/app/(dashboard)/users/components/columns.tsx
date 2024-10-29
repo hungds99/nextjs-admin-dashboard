@@ -7,6 +7,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { User } from '../data/schema';
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
+import { Users } from '@/types/db';
 
 export const statuses = [
   {
@@ -21,7 +22,7 @@ export const statuses = [
   },
 ];
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<Users>[] = [
   {
     id: 'select',
     header: ({ table }) => (
