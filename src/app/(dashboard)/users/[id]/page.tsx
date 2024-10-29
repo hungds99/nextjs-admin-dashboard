@@ -5,7 +5,7 @@ import UserForm from './_components/user-form';
 export default function UserPage() {
   return (
     <AppContainer>
-      <div className='hidden h-full flex-1 flex-col space-y-8 md:flex'>
+      <div className='hidden h-full flex-1 flex-col space-y-4 md:flex'>
         <Header title='Add user' backLink='/users' />
         <UserForm />
       </div>
