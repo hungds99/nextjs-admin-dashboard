@@ -1,13 +1,12 @@
 'use client';
 
+import { DataTableColumnHeader } from '@/components/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Checkbox } from '@/components/ui/checkbox';
+import { User } from '@/schema';
 import { ArrowDownIcon, ArrowRightIcon } from '@radix-ui/react-icons';
 import { ColumnDef } from '@tanstack/react-table';
-import { User } from '../data/schema';
-import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
-import { Users } from '@/types/db';
 
 export const statuses = [
   {
@@ -22,7 +21,7 @@ export const statuses = [
   },
 ];
 
-export const columns: ColumnDef<Users>[] = [
+export const columns: ColumnDef<User>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -47,21 +46,13 @@ export const columns: ColumnDef<Users>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'id',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='ID' />,
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
-    accessorKey: 'image_url',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Image' />,
+    accessorKey: 'avatar',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='' />,
     cell: ({ row }) => {
       return (
         <div className='space-x-2'>
           <Avatar>
-            <AvatarImage src={row.getValue('image_url')} />
+            <AvatarImage src={row.getValue('avatar')} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
@@ -88,46 +79,40 @@ export const columns: ColumnDef<Users>[] = [
     },
   },
   {
-    accessorKey: 'role',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Role' />,
+    accessorKey: 'position',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Position' />,
     cell: ({ row }) => {
-      return <span>{row.getValue('role')}</span>;
+      return <span>{row.getValue('position')}</span>;
     },
+    enableSorting: false,
+    enableHiding: false,
   },
   {
-    accessorKey: 'status',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Status' />,
+    accessorKey: 'website',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Website' />,
     cell: ({ row }) => {
-      const status = statuses.find((status) => status.value === row.getValue('status'));
-
-      if (!status) {
-        return null;
-      }
-
-      return (
-        <div className='flex items-center'>
-          {status.icon && <status.icon className='mr-2 h-4 w-4 text-muted-foreground' />}
-          <span>{status.label}</span>
-        </div>
-      );
+      return <span>{row.getValue('website')}</span>;
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
+    enableSorting: false,
+    enableHiding: false,
   },
   {
-    accessorKey: 'createdAt',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Created At' />,
+    accessorKey: 'phone',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Phone' />,
     cell: ({ row }) => {
-      return <div>{new Date(row.getValue('createdAt')).toLocaleDateString()}</div>;
+      return <span>{row.getValue('phone')}</span>;
     },
+    enableSorting: false,
+    enableHiding: false,
   },
   {
-    accessorKey: 'updatedAt',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Updated At' />,
+    accessorKey: 'address',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Address' />,
     cell: ({ row }) => {
-      return <div>{new Date(row.getValue('updatedAt')).toLocaleDateString()}</div>;
+      return <span>{row.getValue('address')}</span>;
     },
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     id: 'actions',

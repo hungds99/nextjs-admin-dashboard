@@ -1,5 +1,6 @@
 'use client';
 
+import { DataTablePagination } from '@/components/table';
 import {
   Table,
   TableBody,
@@ -24,7 +25,6 @@ import {
 } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
-import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
