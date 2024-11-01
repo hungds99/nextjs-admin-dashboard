@@ -51,9 +51,9 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       return (
         <div className='space-x-2'>
-          <Avatar>
+          <Avatar className='rounded-sm'>
             <AvatarImage src={row.getValue('avatar')} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback className='rounded-sm'>CN</AvatarFallback>
           </Avatar>
         </div>
       );

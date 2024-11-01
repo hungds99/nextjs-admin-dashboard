@@ -4,12 +4,27 @@ export const userSchema = z.object({
   id: z.string(),
   uid: z.string(),
   name: z.string(),
-  phone: z.string().nullable(),
+  phone: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
   email: z.string().email(),
-  address: z.string().nullable(),
-  avatar: z.string().nullable(),
-  company: z.string().nullable(),
-  position: z.string().nullable(),
+  address: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  avatar: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  company: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  position: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
   website: z.string(),
   created_at: z.date(),
   updated_at: z.date(),

@@ -11,7 +11,7 @@ export const AppContainer = ({
     <ScrollArea className='h-[calc(100vh-52px)]'>
       <div
         className={`h-full px-4 pb-12 md:px-8 lg:px-12 xl:px-16 ${
-          isDetailPage ? 'max-w-4xl mx-auto' : ''
+          isDetailPage ? 'max-w-3xl mx-auto' : ''
         }`}
       >
         {children}

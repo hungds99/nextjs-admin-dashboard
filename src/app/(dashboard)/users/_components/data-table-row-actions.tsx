@@ -11,6 +11,7 @@ import {
 import { userSchema } from '@/schema';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 interface DataTableRowActionsProps<TData> {
@@ -19,9 +20,13 @@ interface DataTableRowActionsProps<TData> {
 
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const user = userSchema.parse(row.original);
-
+  const navigate = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const onEdit = () => {
+    navigate.push(`/users/${user.id}`);
+  };
 
   const onConfirm = async () => {};
 
@@ -41,7 +46,7 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' className='w-[160px]'>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
+          <DropdownMenuItem onClick={onEdit}>Edit</DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

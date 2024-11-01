@@ -18,8 +18,6 @@ interface DataTableRowActionsProps<TData> {
 }
 
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
-  const user = userSchema.parse(row.original);
-
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
