@@ -11,7 +11,6 @@ import {
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 import { useState } from 'react';
-import { userSchema } from '../data/schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

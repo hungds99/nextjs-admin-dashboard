@@ -5,8 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { statuses } from './columns';
-import { DataTableFacetedFilter } from './data-table-faceted-filter';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -24,13 +22,13 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
           onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
           className='h-8 w-[150px] lg:w-[250px]'
         />
-        {table.getColumn('status') && (
+        {/* {table.getColumn('status') && (
           <DataTableFacetedFilter
             column={table.getColumn('status')}
             title='Status'
             options={statuses}
           />
-        )}
+        )} */}
         {isFiltered && (
           <Button
             variant='ghost'

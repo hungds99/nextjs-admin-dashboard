@@ -3,11 +3,11 @@
 import { DataTableColumnHeader } from '@/components/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Checkbox } from '@/components/ui/checkbox';
-import { User } from '@/schema';
+import { Company } from '@/schema';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableRowActions } from './data-table-row-actions';
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<Company>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -32,13 +32,13 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'avatar',
+    accessorKey: 'origin_logo_url',
     header: ({ column }) => <DataTableColumnHeader column={column} title='' />,
     cell: ({ row }) => {
       return (
         <div className='space-x-2'>
           <Avatar className='rounded-sm'>
-            <AvatarImage src={row.getValue('avatar')} />
+            <AvatarImage src={row.getValue('origin_logo_url')} />
             <AvatarFallback className='rounded-sm'>CN</AvatarFallback>
           </Avatar>
         </div>
@@ -55,32 +55,14 @@ export const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: 'email',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Email' />,
+    accessorKey: 'email_domain',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Email Domain' />,
     cell: ({ row }) => {
-      return <div>{row.getValue('email')}</div>;
+      return <div>{row.getValue('email_domain')}</div>;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
-  },
-  {
-    accessorKey: 'position',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Position' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('position')}</span>;
-    },
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'website',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Website' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('website')}</span>;
-    },
-    enableSorting: false,
-    enableHiding: false,
   },
   {
     accessorKey: 'phone',
@@ -88,8 +70,13 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       return <span>{row.getValue('phone')}</span>;
     },
-    enableSorting: false,
-    enableHiding: false,
+  },
+  {
+    accessorKey: 'website',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Website' />,
+    cell: ({ row }) => {
+      return <span>{row.getValue('website')}</span>;
+    },
   },
   {
     accessorKey: 'address',
@@ -97,8 +84,13 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       return <span>{row.getValue('address')}</span>;
     },
-    enableSorting: false,
-    enableHiding: false,
+  },
+  {
+    accessorKey: 'country',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Country' />,
+    cell: ({ row }) => {
+      return <span>{row.getValue('country')}</span>;
+    },
   },
   {
     id: 'actions',
