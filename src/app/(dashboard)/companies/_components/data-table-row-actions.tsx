@@ -38,7 +38,10 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' className='w-[160px]'>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
+          <DropdownMenuItem>
+            <DotsHorizontalIcon className='h-4 w-4' />
+            <span>Edit</span>
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

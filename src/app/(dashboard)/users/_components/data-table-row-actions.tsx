@@ -11,6 +11,7 @@ import {
 import { userSchema } from '@/schema/user';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
+import { SquarePenIcon, Trash2Icon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -48,8 +49,14 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' className='w-[160px]'>
-          <DropdownMenuItem onClick={onEdit}>Edit</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={onEdit}>
+            <SquarePenIcon className='h-4 w-4' />
+            <span>Edit</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpen(true)}>
+            <Trash2Icon className='h-4 w-4' />
+            <span>Delete</span>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

@@ -29,16 +29,18 @@ import {
 import {
   BadgeCheck,
   Bell,
-  Bot,
+  Building2Icon,
   ChevronRight,
   ChevronsUpDown,
   CreditCard,
   GalleryVerticalEnd,
-  GitPullRequest,
+  LayoutDashboardIcon,
+  LifeBuoyIcon,
   LogOut,
-  Settings2,
+  SendIcon,
+  Settings2Icon,
   Sparkles,
-  SquareTerminal,
+  UsersIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
@@ -61,24 +63,24 @@ const data = {
     {
       title: 'Dashboard',
       url: '/',
-      icon: SquareTerminal,
+      icon: LayoutDashboardIcon,
       isActive: true,
     },
 
     {
       title: 'Users',
       url: '/users',
-      icon: Bot,
+      icon: UsersIcon,
     },
     {
       title: 'Companies',
       url: '/companies',
-      icon: GitPullRequest,
+      icon: Building2Icon,
     },
     {
       title: 'Settings',
       url: '#',
-      icon: Settings2,
+      icon: Settings2Icon,
       items: [
         {
           title: 'General',
@@ -97,6 +99,18 @@ const data = {
           url: '#',
         },
       ],
+    },
+  ],
+  navSecondary: [
+    {
+      title: 'Support',
+      url: '#',
+      icon: LifeBuoyIcon,
+    },
+    {
+      title: 'Feedback',
+      url: '#',
+      icon: SendIcon,
     },
   ],
 };
@@ -170,72 +184,16 @@ export const AppSidebar = () => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size='lg'
-                  className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
-                >
-                  <Avatar className='h-8 w-8 rounded-lg'>
-                    <AvatarImage src={data.user.avatar} alt={data.user.name} />
-                    <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
-                  </Avatar>
-                  <div className='grid flex-1 text-left text-sm leading-tight'>
-                    <span className='truncate font-semibold'>{data.user.name}</span>
-                    <span className='truncate text-xs'>{data.user.email}</span>
-                  </div>
-                  <ChevronsUpDown className='ml-auto size-4' />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
-                side='bottom'
-                align='end'
-                sideOffset={4}
-              >
-                <DropdownMenuLabel className='p-0 font-normal'>
-                  <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
-                    <Avatar className='h-8 w-8 rounded-lg'>
-                      <AvatarImage src={data.user.avatar} alt={data.user.name} />
-                      <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
-                    </Avatar>
-                    <div className='grid flex-1 text-left text-sm leading-tight'>
-                      <span className='truncate font-semibold'>{data.user.name}</span>
-                      <span className='truncate text-xs'>{data.user.email}</span>
-                    </div>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>
-                    <Sparkles />
-                    Upgrade to Pro
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>
-                    <BadgeCheck />
-                    Account
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <CreditCard />
-                    Billing
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Bell />
-                    Notifications
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <LogOut />
-                  Log out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
+          {data.navSecondary.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild size='sm'>
+                <a href={item.url}>
+                  <item.icon />
+                  <span>{item.title}</span>
+                </a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
       </SidebarFooter>
       <SidebarRail />
