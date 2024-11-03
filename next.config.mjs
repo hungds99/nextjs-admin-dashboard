@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'picsum.photos',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+        port: '',
+      },
     ],
   },
 };

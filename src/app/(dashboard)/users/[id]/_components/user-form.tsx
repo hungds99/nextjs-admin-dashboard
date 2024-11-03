@@ -1,6 +1,5 @@
 'use client';
 
-import { updateUser } from '@/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
@@ -27,7 +26,7 @@ const formSchema = userSchema.pick({
 
 export default function UserForm({ user }: UserFormProps) {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
-  const [avatar, setAvatar] = useState<string | null>('https://picsum.photos/200/300');
+  const [avatar, setAvatar] = useState<string | null>(user?.avatar || null);
   const navigation = useRouter();
   const { toast } = useToast();
 
@@ -45,8 +44,6 @@ export default function UserForm({ user }: UserFormProps) {
   const onSubmit = async (values: User) => {
     const id = user?.id;
     if (!id) return;
-
-    await updateUser(id, values);
 
     toast({
       title: 'User updated',
@@ -66,7 +63,7 @@ export default function UserForm({ user }: UserFormProps) {
   };
 
   const handleRemoveAvatar = () => {
-    setAvatar('https://picsum.photos/200/300');
+    setAvatar(user?.avatar || null);
   };
 
   return (
