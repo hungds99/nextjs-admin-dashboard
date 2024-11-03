@@ -1,18 +1,18 @@
 'use client';
 
+import { updateUser } from '@/actions/user';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { User, userSchema } from '@/schema';
+import { User, userSchema } from '@/schema/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User as UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 interface UserFormProps {
   user?: User;
 }
@@ -44,6 +44,8 @@ export default function UserForm({ user }: UserFormProps) {
   const onSubmit = async (values: User) => {
     const id = user?.id;
     if (!id) return;
+
+    await updateUser(id, values);
 
     toast({
       title: 'User updated',

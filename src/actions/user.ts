@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/lib/kysely';
-import { User } from '@/schema';
+import { User } from '@/schema/user';
 
 export async function getUsers() {
   let users: User[] = [];
@@ -47,7 +47,7 @@ export async function createUser(user: User) {
   }
 }
 
-export async function updateUser(id: string, user: User) {
+export async function updateUser(id: string, user: any) {
   try {
     await db.updateTable('users').set(user).where('id', '=', id).executeTakeFirst();
   } catch (error) {

@@ -1,5 +1,5 @@
 import { db } from '@/lib/kysely';
-import { Company } from '@/schema';
+import { Company } from '@/schema/company';
 
 export async function getCompanies() {
   let companies: Company[] = [];

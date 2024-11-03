@@ -1,4 +1,4 @@
-import { getUser } from '@/actions';
+import { getUser } from '@/actions/user';
 import { AppContainer } from '@/components/common/app-container';
 import { Header } from '@/components/common/header';
 import UserForm from './_components/user-form';

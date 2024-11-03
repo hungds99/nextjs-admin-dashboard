@@ -10,4 +10,3 @@ const dialect = new PostgresDialect({
 });
 
 export const db = new Kysely<DB>({ dialect });
-export { sql } from 'kysely';

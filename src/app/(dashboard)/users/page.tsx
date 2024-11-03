@@ -1,4 +1,4 @@
-import { getUsers } from '@/actions';
+import { getUsers } from '@/actions/user';
 import { AppContainer } from '@/components/common/app-container';
 import { Header } from '@/components/common/header';
 import { buttonVariants } from '@/components/ui/button';

@@ -1,4 +1,4 @@
-import { getCompanies } from '@/actions';
+import { getCompanies } from '@/actions/company';
 import { AppContainer } from '@/components/common/app-container';
 import { Header } from '@/components/common/header';
 import { buttonVariants } from '@/components/ui/button';
