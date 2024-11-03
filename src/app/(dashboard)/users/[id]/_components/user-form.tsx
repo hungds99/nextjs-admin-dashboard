@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
 import { User, userSchema } from '@/schema/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User as UserIcon } from 'lucide-react';
@@ -13,6 +12,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 interface UserFormProps {
   user?: User;
 }
@@ -28,7 +28,6 @@ export default function UserForm({ user }: UserFormProps) {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const [avatar, setAvatar] = useState<string | null>(user?.avatar || null);
   const navigation = useRouter();
-  const { toast } = useToast();
 
   const form = useForm<User>({
     resolver: zodResolver(formSchema),
@@ -47,10 +46,9 @@ export default function UserForm({ user }: UserFormProps) {
 
     await updateUser(id, values);
 
-    toast({
-      title: 'User updated',
-      description: 'User information has been updated successfully',
-    });
+    toast('User information has been updated successfully.');
+
+    form.reset({}, { keepValues: true });
   };
 
   const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
