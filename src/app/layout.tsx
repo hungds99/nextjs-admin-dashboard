@@ -3,6 +3,7 @@ import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import ChatWidget from '@/components/chat-widget/chat-widget';
 
 const geistSans = localFont({
   src: '../assets/fonts/GeistVF.woff',
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>{children}</Providers>
         <Toaster />
+        <ChatWidget />
       </body>
     </html>
   );
