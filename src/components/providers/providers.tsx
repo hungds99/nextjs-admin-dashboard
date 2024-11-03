@@ -1,8 +1,12 @@
 'use client';
 
-import { NuqsAdapter } from 'nuqs/adapters/next';
-import React from 'react';
+import { ReactNode } from 'react';
+import { ThemeProvider } from './theme-provider';
 
-export default function Providers({ children }: { children: React.ReactNode }) {
-  return <NuqsAdapter>{children}</NuqsAdapter>;
+export default function Providers({ children }: { children: ReactNode }) {
+  return (
+    <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+      {children}
+    </ThemeProvider>
+  );
 }

@@ -1,6 +1,7 @@
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Breadcrumbs } from '../breadcrumbs';
+import { ModeToggle } from '../mode-toggle';
 import { UserNav } from '../user-nav';
 
 export const AppHeader = () => {
@@ -12,6 +13,7 @@ export const AppHeader = () => {
         <Breadcrumbs />
       </div>
       <div className='flex items-center gap-2 px-4'>
+        <ModeToggle />
         <UserNav />
       </div>
     </header>
