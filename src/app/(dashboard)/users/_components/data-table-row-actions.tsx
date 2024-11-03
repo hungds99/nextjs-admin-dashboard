@@ -28,7 +28,9 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
     navigate.push(`/users/${user.id}`);
   };
 
-  const onConfirm = async () => {};
+  const onConfirm = async () => {
+    console.log('Delete user', user.id);
+  };
 
   return (
     <>
