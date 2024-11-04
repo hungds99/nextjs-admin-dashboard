@@ -36,3 +36,12 @@ export async function getCompany(id: string) {
 
   return company;
 }
+
+export async function updateCompany(id: string, data: Partial<Company>) {
+  try {
+    await db.updateTable('companies').set(data).where('id', '=', id).executeTakeFirst();
+  } catch (error) {
+    console.error('Error updating company', error);
+    throw new Error('Error updating company');
+  }
+}

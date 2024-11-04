@@ -1,5 +1,6 @@
 'use client';
 
+import { updateCompany } from '@/actions/company';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
@@ -73,6 +74,8 @@ export default function CompanyForm({ company }: CompanyFormProps) {
   const onSubmit = async (values: Company) => {
     const id = company?.id;
     if (!id) return;
+
+    await updateCompany(id, values);
 
     toast('Company information has been updated successfully.');
 
