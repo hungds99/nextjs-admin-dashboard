@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
+import { SquarePenIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 
 interface DataTableRowActionsProps<TData> {
@@ -39,10 +40,13 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' className='w-[160px]'>
           <DropdownMenuItem>
-            <DotsHorizontalIcon className='h-4 w-4' />
+            <SquarePenIcon className='h-4 w-4' />
             <span>Edit</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpen(true)}>
+            <Trash2Icon className='h-4 w-4' />
+            <span>Delete</span>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

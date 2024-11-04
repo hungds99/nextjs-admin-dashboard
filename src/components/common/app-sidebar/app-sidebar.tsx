@@ -1,16 +1,6 @@
 'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import {
   Sidebar,
   SidebarContent,
@@ -27,31 +17,19 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 import {
-  BadgeCheck,
-  Bell,
   Building2Icon,
   ChevronRight,
-  ChevronsUpDown,
-  CreditCard,
   GalleryVerticalEnd,
   LayoutDashboardIcon,
   LifeBuoyIcon,
-  LogOut,
   SendIcon,
   Settings2Icon,
-  Sparkles,
   UsersIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 
-// This is sample data.
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
   teams: [
     {
       name: 'Acme Inc',
