@@ -81,8 +81,8 @@ export default function UserForm({ user }: UserFormProps) {
                 <FormItem>
                   <FormLabel>Avatar</FormLabel>
                   <FormControl>
-                    <div className='flex space-x-4'>
-                      <div className='w-24 h-24 rounded-full overflow-hidden bg-muted flex items-center justify-center'>
+                    <div className='flex space-x-8'>
+                      <div className='w-32 h-32 rounded-full overflow-hidden bg-muted flex items-center justify-center'>
                         {avatar ? (
                           <Image
                             width={96}

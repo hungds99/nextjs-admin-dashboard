@@ -112,12 +112,12 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                 <FormItem>
                   <FormLabel>Logo</FormLabel>
                   <FormControl>
-                    <div className='flex space-x-4'>
-                      <div className='w-24 h-24 rounded-full overflow-hidden bg-muted flex items-center justify-center'>
+                    <div className='flex space-x-8'>
+                      <div className='w-32 h-32 rounded-full overflow-hidden bg-muted flex items-center justify-center'>
                         {logoUrl ? (
                           <Image
-                            width={96}
-                            height={96}
+                            width={112}
+                            height={112}
                             src={logoUrl}
                             alt='Profile'
                             className='w-full h-full object-cover'

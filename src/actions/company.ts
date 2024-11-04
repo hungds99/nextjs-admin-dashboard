@@ -31,7 +31,7 @@ export async function getCompany(id: string) {
       .executeTakeFirst()) as unknown as Company;
   } catch (error) {
     console.error('Error fetching company', error);
-    throw new Error('Error fetching company');
+    return null;
   }
 
   return company;

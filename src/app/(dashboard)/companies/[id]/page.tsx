@@ -2,6 +2,7 @@ import { getCompany } from '@/actions/company';
 import { AppContainer } from '@/components/common/app-container';
 import { Header } from '@/components/common/header';
 import CompanyForm from './_components/company-form';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: { id: string };
@@ -10,10 +11,10 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
   const { id } = params;
 
-  let company;
+  const company = await getCompany(id);
 
-  if (id !== 'new') {
-    company = await getCompany(id);
+  if (!company) {
+    return notFound();
   }
 
   return (
