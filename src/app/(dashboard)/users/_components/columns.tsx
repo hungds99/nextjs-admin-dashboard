@@ -51,15 +51,14 @@ export const columns: ColumnDef<User>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title='Name' />,
     cell: ({ row }) => <div>{row.getValue('name')}</div>,
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      const name = row.getValue(id) as string;
+      return name?.toLowerCase().includes(value.toLowerCase());
     },
   },
   {
     accessorKey: 'email',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Email' />,
-    cell: ({ row }) => {
-      return <div>{row.getValue('email')}</div>;
-    },
+    cell: ({ row }) => <div>{row.getValue('email')}</div>,
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
@@ -67,36 +66,28 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'position',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Position' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('position')}</span>;
-    },
+    cell: ({ row }) => <div>{row.getValue('position')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'website',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Website' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('website')}</span>;
-    },
+    cell: ({ row }) => <div>{row.getValue('website')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'phone',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Phone' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('phone')}</span>;
-    },
+    cell: ({ row }) => <div>{row.getValue('phone')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'address',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Address' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('address')}</span>;
-    },
+    cell: ({ row }) => <div>{row.getValue('address')}</div>,
     enableSorting: false,
     enableHiding: false,
   },

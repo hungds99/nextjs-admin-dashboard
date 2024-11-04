@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { MessageCircle, Send, X } from 'lucide-react';
-import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [messages, setMessages] = React.useState([
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
     {
       content: '👋 Hi! I am Chatbase AI, ask me anything about Chatbase!',
       role: 'assistant',
@@ -19,14 +19,14 @@ export default function ChatWidget() {
       role: 'assistant',
     },
   ]);
-  const [inputMessage, setInputMessage] = React.useState('');
-  const messagesEndRef = React.useRef<any>(null);
+  const [inputMessage, setInputMessage] = useState('');
+  const messagesEndRef = useRef<any>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     scrollToBottom();
   }, [messages]);
 

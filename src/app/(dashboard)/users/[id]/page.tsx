@@ -1,6 +1,7 @@
 import { getUser } from '@/actions/user';
 import { AppContainer } from '@/components/common/app-container';
 import { Header } from '@/components/common/header';
+import { notFound } from 'next/navigation';
 import UserForm from './_components/user-form';
 
 interface PageProps {
@@ -10,10 +11,10 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
   const { id } = params;
 
-  let user;
+  const user = await getUser(id);
 
-  if (id !== 'new') {
-    user = await getUser(id);
+  if (!user) {
+    return notFound();
   }
 
   return (

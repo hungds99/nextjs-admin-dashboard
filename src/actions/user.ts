@@ -32,7 +32,7 @@ export async function getUser(id: string) {
       .executeTakeFirst()) as User;
   } catch (error) {
     console.error('Error fetching user', error);
-    throw new Error('Error fetching user');
+    return null;
   }
 
   return user;
