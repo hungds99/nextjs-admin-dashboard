@@ -51,46 +51,34 @@ export const columns: ColumnDef<Company>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title='Name' />,
     cell: ({ row }) => <div>{row.getValue('name')}</div>,
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      const name = row.getValue(id) as string;
+      return name?.toLowerCase().includes(value.toLowerCase());
     },
   },
   {
     accessorKey: 'email_domain',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Email Domain' />,
-    cell: ({ row }) => {
-      return <div>{row.getValue('email_domain')}</div>;
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
+    cell: ({ row }) => <div>{row.getValue('email_domain')}</div>,
   },
   {
     accessorKey: 'phone',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Phone' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('phone')}</span>;
-    },
+    cell: ({ row }) => <div>{row.getValue('phone')}</div>,
   },
   {
     accessorKey: 'website',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Website' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('website')}</span>;
-    },
+    cell: ({ row }) => <div>{row.getValue('website')}</div>,
   },
   {
     accessorKey: 'address',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Address' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('address')}</span>;
-    },
+    cell: ({ row }) => <div>{row.getValue('address')}</div>,
   },
   {
     accessorKey: 'country',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Country' />,
-    cell: ({ row }) => {
-      return <span>{row.getValue('country')}</span>;
-    },
+    cell: ({ row }) => <div>{row.getValue('country')}</div>,
   },
   {
     id: 'actions',
