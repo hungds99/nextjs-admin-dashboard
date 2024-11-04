@@ -2,19 +2,52 @@ import { z } from 'zod';
 
 export const companySchema = z.object({
   id: z.string(),
-  name: z.string().optional().default(''),
-  overview: z.string().optional().default(''),
+  name: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  overview: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
   potential_type: z.number(),
-  address: z.string().optional().default(''),
-  country: z.string().optional().default(''),
+  address: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  country: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
   email_domain: z.string(),
-  phone: z.string().optional().default(''),
-  matching_criteria: z.string().optional().default(''),
-  facebook_url: z.string().optional().default(''),
-  linkedin_url: z.string().optional().default(''),
-  logo_path: z.string().optional().default(''),
-  origin_logo_url: z.string().optional().default(''),
-  website: z.string().optional().default(''),
+  phone: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  matching_criteria: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  facebook_url: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  linkedin_url: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  logo_path: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  origin_logo_url: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
+  website: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
   created_at: z.date(),
   updated_at: z.date(),
   deleted_at: z.date().optional().nullable(),

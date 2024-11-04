@@ -1,10 +1,16 @@
 'use client';
 
-// import { updateCompany } from '@/actions/company';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Company, companySchema } from '@/schema/company';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,9 +41,14 @@ const formSchema = companySchema.pick({
   website: true,
 });
 
+const POTENTIAL_TYPES = [
+  { value: 1, label: 'Investor' },
+  { value: 2, label: 'Buyer' },
+] as const;
+
 export default function CompanyForm({ company }: CompanyFormProps) {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
-  const [avatar, setAvatar] = useState<string | null>(company?.logo_path || '');
+  const [logoUrl, setLogoUrl] = useState<string | null>(company?.origin_logo_url || '');
   const navigation = useRouter();
 
   const form = useForm<Company>({
@@ -63,26 +74,24 @@ export default function CompanyForm({ company }: CompanyFormProps) {
     const id = company?.id;
     if (!id) return;
 
-    // await updateCompany(id, values);
-
     toast('Company information has been updated successfully.');
 
     form.reset({}, { keepValues: true });
   };
 
-  const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setAvatar(reader.result as string);
+        setLogoUrl(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleRemoveAvatar = () => {
-    setAvatar(company?.logo_path || '');
+  const handleRemoveLogo = () => {
+    setLogoUrl(company?.origin_logo_url || '');
   };
 
   return (
@@ -102,11 +111,11 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                   <FormControl>
                     <div className='flex space-x-4'>
                       <div className='w-24 h-24 rounded-full overflow-hidden bg-muted flex items-center justify-center'>
-                        {avatar ? (
+                        {logoUrl ? (
                           <Image
                             width={96}
                             height={96}
-                            src={avatar}
+                            src={logoUrl}
                             alt='Profile'
                             className='w-full h-full object-cover'
                           />
@@ -130,16 +139,10 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                             type='file'
                             accept='image/*'
                             className='hidden'
-                            onChange={handleAvatarUpload}
+                            onChange={handleLogoUpload}
                             disabled
                           />
-                          <Button
-                            variant='outline'
-                            size='sm'
-                            // disabled={!avatar}
-                            disabled
-                            onClick={handleRemoveAvatar}
-                          >
+                          <Button variant='outline' size='sm' disabled onClick={handleRemoveLogo}>
                             Remove Photo
                           </Button>
                         </div>
@@ -173,63 +176,81 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                 </FormItem>
               )}
             />
+            <div className='flex gap-4'>
+              <FormField
+                control={form.control}
+                name='address'
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormLabel>Address</FormLabel>
+                    <FormControl>
+                      <Input placeholder='123 Main St' {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='country'
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormLabel>Country</FormLabel>
+                    <FormControl>
+                      <Input placeholder='USA' {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className='flex gap-4'>
+              <FormField
+                control={form.control}
+                name='email_domain'
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormLabel>Email Domain</FormLabel>
+                    <FormControl>
+                      <Input placeholder='example.com' {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='phone'
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormLabel>Phone</FormLabel>
+                    <FormControl>
+                      <Input placeholder='(+84) 321939213' {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name='potential_type'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Potential Type</FormLabel>
-                  <FormControl>
-                    <Input type='number' placeholder='1' {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='address'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address</FormLabel>
-                  <FormControl>
-                    <Input placeholder='123 Main St' {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='country'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Country</FormLabel>
-                  <FormControl>
-                    <Input placeholder='USA' {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='email_domain'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email Domain</FormLabel>
-                  <FormControl>
-                    <Input placeholder='example.com' {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='phone'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input placeholder='(+84) 321939213' {...field} />
-                  </FormControl>
+                  <Select
+                    onValueChange={(value) => field.onChange(Number(value))}
+                    defaultValue={field.value?.toString()}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select potential type' />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {POTENTIAL_TYPES.map((type) => (
+                        <SelectItem key={type.value} value={type.value.toString()}>
+                          {type.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormItem>
               )}
             />
@@ -240,11 +261,38 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                 <FormItem>
                   <FormLabel>Matching Criteria</FormLabel>
                   <FormControl>
-                    <Input placeholder='Criteria' {...field} />
+                    <Textarea placeholder='Criteria' {...field} />
                   </FormControl>
                 </FormItem>
               )}
             />
+
+            <div className='flex gap-4'>
+              <FormField
+                control={form.control}
+                name='website'
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormLabel>Website</FormLabel>
+                    <FormControl>
+                      <Input placeholder='https://example.com' {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='origin_logo_url'
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormLabel>Origin Logo URL</FormLabel>
+                    <FormControl>
+                      <Input placeholder='https://example.com/logo.png' {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name='facebook_url'
@@ -265,30 +313,6 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                   <FormLabel>LinkedIn URL</FormLabel>
                   <FormControl>
                     <Input placeholder='https://linkedin.com' {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='origin_logo_url'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Origin Logo URL</FormLabel>
-                  <FormControl>
-                    <Input placeholder='https://example.com/logo.png' {...field} />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='website'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Website</FormLabel>
-                  <FormControl>
-                    <Input placeholder='https://example.com' {...field} />
                   </FormControl>
                 </FormItem>
               )}

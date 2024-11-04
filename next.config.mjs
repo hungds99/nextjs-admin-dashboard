@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: 'i.pravatar.cc',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'logo.clearbit.com',
+        port: '',
+      },
     ],
   },
 };

@@ -8,9 +8,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { companySchema } from '@/schema/company';
+import { userSchema } from '@/schema/user';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 import { SquarePenIcon, Trash2Icon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 interface DataTableRowActionsProps<TData> {
@@ -18,10 +21,18 @@ interface DataTableRowActionsProps<TData> {
 }
 
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
+  const company = companySchema.parse(row.original);
+  const navigate = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onConfirm = async () => {};
+  const onEdit = () => {
+    navigate.push(`/companies/${company.id}`);
+  };
+
+  const onConfirm = async () => {
+    console.log('Delete company', company.id);
+  };
 
   return (
     <>
@@ -39,7 +50,7 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' className='w-[160px]'>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={onEdit}>
             <SquarePenIcon className='h-4 w-4' />
             <span>Edit</span>
           </DropdownMenuItem>
