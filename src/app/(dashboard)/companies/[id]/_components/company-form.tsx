@@ -1,6 +1,5 @@
 'use client';
 
-import { updateCompany } from '@/actions/company';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
@@ -13,7 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Company, companySchema } from '@/schema/company';
+import { Company } from '@/db/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User as UserIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -21,25 +20,26 @@ import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
 interface CompanyFormProps {
   company?: Company;
 }
 
-const formSchema = companySchema.pick({
-  name: true,
-  overview: true,
-  potential_type: true,
-  address: true,
-  country: true,
-  email_domain: true,
-  phone: true,
-  matching_criteria: true,
-  facebook_url: true,
-  linkedin_url: true,
-  logo_path: true,
-  origin_logo_url: true,
-  website: true,
+const formSchema = z.object({
+  name: z.string(),
+  overview: z.string(),
+  potentialType: z.number(),
+  address: z.string(),
+  country: z.string(),
+  emailDomain: z.string(),
+  phone: z.string(),
+  matchingCriteria: z.string(),
+  facebookUrl: z.string(),
+  linkedinUrl: z.string(),
+  logoPath: z.string(),
+  originLogoUrl: z.string(),
+  website: z.string(),
 });
 
 const POTENTIAL_TYPES = [
@@ -49,25 +49,13 @@ const POTENTIAL_TYPES = [
 
 export default function CompanyForm({ company }: CompanyFormProps) {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
-  const [logoUrl, setLogoUrl] = useState<string | null>(company?.origin_logo_url || '');
+  const [logoUrl, setLogoUrl] = useState<string | null>(company?.originLogoUrl || '');
   const navigation = useRouter();
 
   const form = useForm<Company>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: company?.name || '',
-      overview: company?.overview || '',
-      potential_type: company?.potential_type || 0,
-      address: company?.address || '',
-      country: company?.country || '',
-      email_domain: company?.email_domain || '',
-      phone: company?.phone || '',
-      matching_criteria: company?.matching_criteria || '',
-      facebook_url: company?.facebook_url || '',
-      linkedin_url: company?.linkedin_url || '',
-      logo_path: company?.logo_path || '',
-      origin_logo_url: company?.origin_logo_url || '',
-      website: company?.website || '',
+      ...formSchema.parse(company),
     },
   });
 
@@ -75,7 +63,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
     const id = company?.id;
     if (!id) return;
 
-    await updateCompany(id, values);
+    // await updateCompany(id, values);
 
     toast('Company information has been updated successfully.');
 
@@ -94,7 +82,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
   };
 
   const handleRemoveLogo = () => {
-    setLogoUrl(company?.origin_logo_url || '');
+    setLogoUrl(company?.originLogoUrl || '');
   };
 
   return (
@@ -107,7 +95,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <FormField
               control={form.control}
-              name='logo_path'
+              name='logoPath'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Logo</FormLabel>
@@ -126,7 +114,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                           <UserIcon className='w-12 h-12 text-muted-foreground' />
                         )}
                       </div>
-                      <Input type='hidden' {...field} />
+                      <Input type='hidden' {...field} value={field.value || ''} />
                       <div className='flex items-center'>
                         <div className='flex flex-col space-y-2'>
                           <Button
@@ -162,7 +150,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder='Company Name' {...field} />
+                    <Input placeholder='Company Name' {...field} value={field.value || ''} />
                   </FormControl>
                 </FormItem>
               )}
@@ -174,7 +162,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                 <FormItem>
                   <FormLabel>Overview</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Company overview' {...field} />
+                    <Textarea placeholder='Company overview' {...field} value={field.value || ''} />
                   </FormControl>
                 </FormItem>
               )}
@@ -187,7 +175,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                   <FormItem className='flex-1'>
                     <FormLabel>Address</FormLabel>
                     <FormControl>
-                      <Input placeholder='123 Main St' {...field} />
+                      <Input placeholder='123 Main St' {...field} value={field.value || ''} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -199,7 +187,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                   <FormItem className='flex-1'>
                     <FormLabel>Country</FormLabel>
                     <FormControl>
-                      <Input placeholder='USA' {...field} />
+                      <Input placeholder='USA' {...field} value={field.value || ''} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -208,12 +196,12 @@ export default function CompanyForm({ company }: CompanyFormProps) {
             <div className='flex gap-4'>
               <FormField
                 control={form.control}
-                name='email_domain'
+                name='emailDomain'
                 render={({ field }) => (
                   <FormItem className='flex-1'>
                     <FormLabel>Email Domain</FormLabel>
                     <FormControl>
-                      <Input placeholder='example.com' {...field} />
+                      <Input placeholder='example.com' {...field} value={field.value || ''} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -225,7 +213,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                   <FormItem className='flex-1'>
                     <FormLabel>Phone</FormLabel>
                     <FormControl>
-                      <Input placeholder='(+84) 321939213' {...field} />
+                      <Input placeholder='(+84) 321939213' {...field} value={field.value || ''} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -233,7 +221,7 @@ export default function CompanyForm({ company }: CompanyFormProps) {
             </div>
             <FormField
               control={form.control}
-              name='potential_type'
+              name='potentialType'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Potential Type</FormLabel>
@@ -259,12 +247,12 @@ export default function CompanyForm({ company }: CompanyFormProps) {
             />
             <FormField
               control={form.control}
-              name='matching_criteria'
+              name='matchingCriteria'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Matching Criteria</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Criteria' {...field} />
+                    <Textarea placeholder='Criteria' {...field} value={field.value || ''} />
                   </FormControl>
                 </FormItem>
               )}
@@ -278,19 +266,27 @@ export default function CompanyForm({ company }: CompanyFormProps) {
                   <FormItem className='flex-1'>
                     <FormLabel>Website</FormLabel>
                     <FormControl>
-                      <Input placeholder='https://example.com' {...field} />
+                      <Input
+                        placeholder='https://example.com'
+                        {...field}
+                        value={field.value || ''}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
-                name='origin_logo_url'
+                name='originLogoUrl'
                 render={({ field }) => (
                   <FormItem className='flex-1'>
                     <FormLabel>Origin Logo URL</FormLabel>
                     <FormControl>
-                      <Input placeholder='https://example.com/logo.png' {...field} />
+                      <Input
+                        placeholder='https://example.com/logo.png'
+                        {...field}
+                        value={field.value || ''}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -298,24 +294,32 @@ export default function CompanyForm({ company }: CompanyFormProps) {
             </div>
             <FormField
               control={form.control}
-              name='facebook_url'
+              name='facebookUrl'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Facebook URL</FormLabel>
                   <FormControl>
-                    <Input placeholder='https://facebook.com' {...field} />
+                    <Input
+                      placeholder='https://facebook.com'
+                      {...field}
+                      value={field.value || ''}
+                    />
                   </FormControl>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name='linkedin_url'
+              name='linkedinUrl'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>LinkedIn URL</FormLabel>
                   <FormControl>
-                    <Input placeholder='https://linkedin.com' {...field} />
+                    <Input
+                      placeholder='https://linkedin.com'
+                      {...field}
+                      value={field.value || ''}
+                    />
                   </FormControl>
                 </FormItem>
               )}

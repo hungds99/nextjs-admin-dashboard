@@ -1,11 +1,10 @@
 'use client';
 
-import { updateUser } from '@/actions/user';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { User, userSchema } from '@/schema/user';
+import { User } from '@/db/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User as UserIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -13,15 +12,17 @@ import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 interface UserFormProps {
   user?: User;
 }
 
-const formSchema = userSchema.pick({
-  name: true,
-  position: true,
-  phone: true,
-  email: true,
+const formSchema = z.object({
+  avatar: z.string(),
+  name: z.string(),
+  email: z.string(),
+  position: z.string(),
+  phone: z.string(),
 });
 
 export default function UserForm({ user }: UserFormProps) {
@@ -44,7 +45,7 @@ export default function UserForm({ user }: UserFormProps) {
     const id = user?.id;
     if (!id) return;
 
-    await updateUser(id, values);
+    // await updateUser(id, values);
 
     toast('User information has been updated successfully.');
 
@@ -95,7 +96,7 @@ export default function UserForm({ user }: UserFormProps) {
                           <UserIcon className='w-12 h-12 text-muted-foreground' />
                         )}
                       </div>
-                      <Input type='hidden' {...field} />
+                      <Input type='hidden' {...field} value={field.value || ''} />
                       <div className='flex items-center'>
                         <div className='flex flex-col space-y-2'>
                           <Button
@@ -149,7 +150,7 @@ export default function UserForm({ user }: UserFormProps) {
                 <FormItem>
                   <FormLabel>Position</FormLabel>
                   <FormControl>
-                    <Input placeholder='CEO' {...field} />
+                    <Input placeholder='CEO' {...field} value={field.value || ''} />
                   </FormControl>
                 </FormItem>
               )}
@@ -161,7 +162,7 @@ export default function UserForm({ user }: UserFormProps) {
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder='(+84) 321939213' {...field} />
+                    <Input placeholder='(+84) 321939213' {...field} value={field.value || ''} />
                   </FormControl>
                 </FormItem>
               )}

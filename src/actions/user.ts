@@ -1,57 +1,31 @@
-'use server';
-
-import { db } from '@/lib/kysely';
-import { User } from '@/schema/user';
-
-export async function getUsers() {
-  let users: User[] = [];
-
-  try {
-    users = (await db
-      .selectFrom('users')
-      .selectAll()
-      .where('deleted_at', 'is', null)
-      .execute()) as User[];
-  } catch (error) {
-    console.error('Error fetching users', error);
-    throw new Error('Error fetching users');
-  }
-
-  return users;
-}
+import { db } from '@/db';
+import { User, userTable } from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
 export async function getUser(id: string) {
-  let user: User | undefined = undefined;
-
   try {
-    user = (await db
-      .selectFrom('users')
-      .selectAll()
-      .where('id', '=', id)
-      .where('deleted_at', 'is', null)
-      .executeTakeFirst()) as User;
+    const [user] = await db.select().from(userTable).where(eq(userTable.id, id));
+    return user;
   } catch (error) {
-    console.error('Error fetching user', error);
-    return null;
-  }
-
-  return user;
-}
-
-export async function createUser(user: User) {
-  try {
-    await db.insertInto('users').values(user).executeTakeFirst();
-  } catch (error) {
-    console.error('Error creating user', error);
-    throw new Error('Error creating user');
+    console.error('Failed to get user from database');
+    throw error;
   }
 }
 
-export async function updateUser(id: string, user: any) {
+export async function createUser(data: User) {
   try {
-    await db.updateTable('users').set(user).where('id', '=', id).executeTakeFirst();
+    return await db.insert(userTable).values({ ...data });
   } catch (error) {
-    console.error('Error updating user', error);
-    throw new Error('Error updating user');
+    console.error('Failed to create user in database');
+    throw error;
+  }
+}
+
+export async function getUsers() {
+  try {
+    return await db.select().from(userTable);
+  } catch (error) {
+    console.error('Failed to get users from database');
+    throw error;
   }
 }

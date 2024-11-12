@@ -3,7 +3,7 @@
 import { DataTableColumnHeader } from '@/components/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Company } from '@/schema/company';
+import { Company } from '@/db/schema';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableRowActions } from './data-table-row-actions';
 

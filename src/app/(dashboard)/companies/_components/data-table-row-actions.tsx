@@ -8,8 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { companySchema } from '@/schema/company';
-import { userSchema } from '@/schema/user';
+import { selectCompanySchema } from '@/db/schema';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 import { SquarePenIcon, Trash2Icon } from 'lucide-react';
@@ -21,7 +20,7 @@ interface DataTableRowActionsProps<TData> {
 }
 
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
-  const company = companySchema.parse(row.original);
+  const company = selectCompanySchema.parse(row.original);
   const navigate = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);

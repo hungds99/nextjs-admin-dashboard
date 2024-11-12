@@ -20,7 +20,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <AppContainer isDetailPage>
       <div className='h-full flex-1 flex-col space-y-4 md:flex'>
-        <Header title={id === 'new' ? 'Add user' : user?.name} backLink='/users' />
+        <Header title={id === 'new' ? 'Add user' : user.name} backLink='/users' />
         <UserForm user={user} />
       </div>
     </AppContainer>

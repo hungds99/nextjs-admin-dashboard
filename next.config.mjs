@@ -27,6 +27,10 @@ const nextConfig = {
         hostname: 'logo.clearbit.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.example.com',
+      },
     ],
   },
 };
