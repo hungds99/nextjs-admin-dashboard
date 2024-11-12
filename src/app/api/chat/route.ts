@@ -4,7 +4,7 @@ import { getMostRecentUserMessage } from '@/lib/message';
 import { openai } from '@ai-sdk/openai';
 import { convertToCoreMessages, streamText } from 'ai';
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const { messages, is_test, id, userId } = await req.json();
   console.log('is_test : ', is_test);
 

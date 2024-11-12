@@ -5,10 +5,11 @@ import { notFound } from 'next/navigation';
 import CompanyForm from './_components/company-form';
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
   const { id } = params;
 
   const company = await getCompany(id);
